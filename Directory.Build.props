@@ -1,0 +1,36 @@
+﻿<Project>
+    <Sdk Name="DotNet.ReproducibleBuilds.Isolated" Version="1.2.39"/>
+
+    <PropertyGroup Label="Project settings">
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Configurations>Debug;Release</Configurations>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <Deterministic>true</Deterministic>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analyzer settings">
+        <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <AnalysisLevel>latest-all</AnalysisLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup Label="Global package references">
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.39">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="SmartAnalyzers.ExceptionAnalyzer" Version="1.0.10">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+</Project>

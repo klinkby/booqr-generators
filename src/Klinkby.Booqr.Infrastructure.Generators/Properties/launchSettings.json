@@ -1,0 +1,9 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Generators": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "../Klinkby.Booqr.Infrastructure/Klinkby.Booqr.Infrastructure.csproj"
+    }
+  }
+}
