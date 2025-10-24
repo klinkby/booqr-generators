@@ -1,0 +1,1 @@
+# Booqr.Infrastructure.Generators
