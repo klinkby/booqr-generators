@@ -18,7 +18,7 @@
         <AssemblyName>Klinkby.Booqr.Infrastructure.Generators</AssemblyName>
         <AssemblyTitle>Klinkby.Booqr.Infrastructure.Generators</AssemblyTitle>
         <PackageId>Klinkby.Booqr.Infrastructure.Generators</PackageId>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>1.1.0</PackageVersion>
         <PackageIcon>generator.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>

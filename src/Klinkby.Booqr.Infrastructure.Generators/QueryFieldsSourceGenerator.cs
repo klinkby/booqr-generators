@@ -61,6 +61,10 @@ public sealed class QueryFieldsGenerator : IIncrementalGenerator
         var commaSeparated = string.Join(",", fieldNames);
         var parametersCommaSeparated = "@" + string.Join(",@", fieldNames);
         var parametersAssignment = string.Join(",", fieldNames.Select(field => $"{field} = @{field}"));
+        var coalesceParametersAssignment = string.Join(",",
+            fieldNames.Select(field => $"{field} = COALESCE(@{field},{field})"));
+        var coalesceParameterValues = string.Join(",", fieldNames.Select(field => $"COALESCE(@{field},{field})"));
+
         var generatedCode = $$"""
                               namespace {{Namespace}}
                               {
@@ -68,11 +72,14 @@ public sealed class QueryFieldsGenerator : IIncrementalGenerator
                                       private const string CommaSeparated = "{{commaSeparated}}";
                                       private const string ParametersCommaSeparated = "{{parametersCommaSeparated}}";
                                       private const string ParametersAssignment = "{{parametersAssignment}}";
+                                      private const string CoalesceParametersAssignment = "{{coalesceParametersAssignment}}";
+                                      private const string CoalesceValues = "{{coalesceParameterValues}}";
 
                                       private const string GetAllQuery = $"SELECT id,{CommaSeparated},created,modified,deleted FROM {TableName} WHERE deleted IS NULL LIMIT @Num OFFSET @Start";
                                       private const string GetByIdQuery = $"SELECT id,{CommaSeparated},created,modified,deleted FROM {TableName} WHERE deleted IS NULL and id = @Id";
                                       private const string InsertQuery = $"INSERT INTO {TableName} ({CommaSeparated},created,modified,deleted) VALUES ({ParametersCommaSeparated},@Created,@Modified,@Deleted) RETURNING id";
                                       private const string UpdateQuery = $"UPDATE {TableName} SET {ParametersAssignment},modified = @Modified WHERE deleted is NULL AND id = @Id AND (@Version IS NULL OR modified = @Version)";
+                                      private const string PatchQuery = $"UPDATE {TableName} SET {CoalesceParametersAssignment},modified = @Modified WHERE deleted is NULL AND id = @Id AND (@Version IS NULL OR modified = @Version) AND ({CommaSeparated}) IS DISTINCT FROM ({CoalesceValues})" +
                                       private const string DeleteQuery = $"UPDATE {TableName} SET deleted = @Now WHERE id = @Id AND deleted IS NULL";
                                       private const string UndeleteQuery = $"UPDATE {TableName} SET deleted = NULL WHERE id = @Id AND deleted IS NOT NULL";
                                   }
